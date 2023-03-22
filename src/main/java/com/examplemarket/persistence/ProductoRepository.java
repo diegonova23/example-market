@@ -5,6 +5,7 @@ import com.examplemarket.domain.repository.ProductRepository;
 import com.examplemarket.persistence.crud.ProductoCrudRepository;
 import com.examplemarket.persistence.entity.Producto;
 import com.examplemarket.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.Optional;
 // Se le indica a Spring que esta clase interactúa con la DB
 @Repository
 public class ProductoRepository implements ProductRepository {
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
+    @Autowired
     private ProductMapper mapper;
 
 
@@ -21,7 +24,6 @@ public class ProductoRepository implements ProductRepository {
     // recuperar todos los productos de la DB
     public List<Product> getAll() {
         List<Producto> productos = (List<Producto>) productoCrudRepository.findAll();
-        // se debe hacer cast para volverlo una lista
         return mapper.toProducts(productos);
     }
 
